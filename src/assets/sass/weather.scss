@@ -1,0 +1,358 @@
+/* Weather */
+
+.weather {
+  font-family: 'Baloo Thambi 2';
+  font-weight: normal;
+}
+
+.weather__container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.weather__container_large {
+  max-width: 1200px;
+}
+
+.weather__container_small {
+  max-width: 420px;
+}
+
+/* Header */
+
+.w-header {
+  padding: 15px 0;
+  background-color: $bg-color-default;
+  // transition: background-color 400ms ease;
+}
+
+.w-header__wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.w-header-logo {
+  padding-left: 50px;
+  position: relative;
+  font-size: 20px;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.w-header-logo::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(0, -0.6em);
+  background-image: url(../icons/logo-icon.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+/* Body */
+
+.w-body {
+  padding: 60px 0 50px;
+  position: relative;
+}
+
+/* Location */
+
+.w-location {
+  width: 100%;
+  max-width: 250px;
+  margin: 0 auto 30px;
+  position: relative;
+}
+
+.w-location__title {
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 100;
+  color: $text-color-gray-dark;
+  text-transform: uppercase;
+}
+
+.w-location__country {
+  position: relative;
+  border-bottom: 1px solid $text-color-gray-light;
+}
+
+.w-location__country::after {
+  content: '';
+  display: block;
+  width: 18px;
+  height: 8px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-image: url(../icons/down-arrow.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: transform 200ms ease;
+  pointer-events: none;
+}
+
+.w-location__country_active {
+  border-bottom: 1px solid $text-color-gray-dark;
+}
+
+.w-location__country_active::after {
+  transform: translateY(-50%) rotate(-180deg);
+}
+
+.w-location__country-input {
+  width: 100%;
+  padding: 7px 30px 7px 0;
+  font-family: inherit;
+  font-size: 16px;
+  color: #333;
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  // border-bottom: 1px solid $text-color-gray-light;
+  outline: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+.w-location__country-input::placeholder {
+  color: $text-color-gray-light;
+}
+
+.w-location__country {
+  position: relative;
+}
+
+.w-location__country-list {
+  max-height: 330px;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  transform: translateY(-2px);
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(105, 105, 105, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  overflow: scroll;
+  z-index: 3;
+  transition: transform 200ms ease, opacity 200ms ease;
+}
+
+.w-location__country-list_visible {
+  transform: translateY(3px);
+  opacity: 1;
+  visibility: visible;
+}
+
+.w-location__country-list_hidden {
+  transform: translateY(-2px);
+  opacity: 0;
+  visibility: visible;
+}
+
+.w-location__country-list {
+  background-color: #fff;
+}
+
+.w-location__country-item {
+  width: inherit;
+  padding: 4px 14px;
+  font-size: 16px;
+  color: #333;
+  user-select: none;
+  cursor: pointer;
+}
+
+.w-location__country-item:hover {
+  background-color: #d1e8f8;
+}
+
+.w-location__city {
+  width: 100%;
+  padding: 7px 30px 7px 0;
+  font-family: inherit;
+  font-size: 16px;
+  color: #333;
+  background-color: #fff;
+  border: none;
+  border-bottom: 1px solid $text-color-gray-light;
+  border-radius: 0;
+  appearance: none;
+  outline: none;
+}
+
+.w-location__city:focus {
+  border-bottom: 1px solid $text-color-gray-dark;
+}
+
+.w-location__city::placeholder {
+  color: $text-color-gray-light;
+}
+
+.w-location__btn {
+  position: absolute;
+  right: 0;
+  bottom: 2px;
+  font-size: 12px;
+  line-height: 2;
+  text-transform: uppercase;
+  color: $text-color-gray-light;
+  background-color: #fff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.w-location__city:focus ~ .w-location__btn {
+  color: $text-color-gray-dark;
+}
+
+/* Widget */
+
+.w-widget {
+  color: $text-color-gray-dark;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(105, 105, 105, 0.2);
+  overflow: hidden;
+}
+
+.w-widget__wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 50px 0;
+}
+
+.w-widget__col {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  position: relative;
+}
+
+.w-widget__col_left {
+  width: 45%;
+  padding: 0 10px;
+}
+
+.w-widget__col_right {
+  width: 55%;
+}
+
+.w-widget__icon {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.w-widget__icon_lighten {
+  opacity: 0.5;
+}
+
+.w-widget__loader {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-image: url(../icons/loader.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: rotate-loader;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  visibility: hidden;
+  z-index: 2;
+}
+
+.w-widget__loader_visible {
+  visibility: visible;
+}
+
+.w-widget__temp {
+  margin-bottom: 20px;
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.w-widget__desc {
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.5;
+  color: #0075C4;
+}
+
+.w-widget__date {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+@media screen and (max-width: 480px) {
+
+  .w-widget {
+    box-shadow: none;
+    border-radius: unset;
+  }
+
+}
+
+@keyframes rotate-loader {
+
+  0% {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+
+}
+
+/* Footer */
+
+.w-footer {
+  padding: 10px 0;
+}
+
+.w-footer-logo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.w-footer-logo__text {
+  margin-right: 15px;
+  font-size: 12px;
+  font-weight: 600;
+  color: $text-color-gray-light;
+  text-transform: uppercase;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.w-footer-logo__line {
+  width: 100%;
+  height: 1px;
+  transform: translateY(0.5em);
+  background-color: $text-color-gray-light;
+}

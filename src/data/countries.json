@@ -1,0 +1,290 @@
+[
+    {
+        "country": "Argentina",
+        "abbreviation": "AR"
+    },
+    {
+        "country": "Armenia",
+        "abbreviation": "AM"
+    },
+    {
+        "country": "Australia",
+        "abbreviation": "AU"
+    },
+    {
+        "country": "Austria",
+        "abbreviation": "AT"
+    },
+    {
+        "country": "Azerbaijan",
+        "abbreviation": "AZ"
+    },
+    {
+        "country": "Belarus",
+        "abbreviation": "BY"
+    },
+    {
+        "country": "Belgium",
+        "abbreviation": "BE"
+    },
+    {
+        "country": "Brazil",
+        "abbreviation": "BR"
+    },
+    {
+        "country": "Bulgaria",
+        "abbreviation": "BG"
+    },
+    {
+        "country": "Canada",
+        "abbreviation": "CA"
+    },
+    {
+        "country": "Chile",
+        "abbreviation": "CL"
+    },
+    {
+        "country": "China",
+        "abbreviation": "CN"
+    },
+    {
+        "country": "Colombia",
+        "abbreviation": "CO"
+    },
+    {
+        "country": "Croatia",
+        "abbreviation": "HR"
+    },
+    {
+        "country": "Cuba",
+        "abbreviation": "CU"
+    },
+    {
+        "country": "Czech Republic",
+        "abbreviation": "CZ"
+    },
+    {
+        "country": "Ecuador",
+        "abbreviation": "EC"
+    },
+    {
+        "country": "Egypt",
+        "abbreviation": "EG"
+    },
+    {
+        "country": "Estonia",
+        "abbreviation": "EE"
+    },
+    {
+        "country": "Finland",
+        "abbreviation": "FI"
+    },
+    {
+        "country": "France",
+        "abbreviation": "FR"
+    },
+    {
+        "country": "Georgia",
+        "abbreviation": "GE"
+    },
+    {
+        "country": "Germany",
+        "abbreviation": "DE"
+    },
+    {
+        "country": "Greece",
+        "abbreviation": "GR"
+    },
+    {
+        "country": "Guinea-Bissau",
+        "abbreviation": "GW"
+    },
+    {
+        "country": "Hong Kong",
+        "abbreviation": "HK"
+    },
+    {
+        "country": "Hungary",
+        "abbreviation": "HU"
+    },
+    {
+        "country": "Iceland",
+        "abbreviation": "IS"
+    },
+    {
+        "country": "India",
+        "abbreviation": "IN"
+    },
+    {
+        "country": "Indonesia",
+        "abbreviation": "ID"
+    },
+    {
+        "country": "Iran",
+        "abbreviation": "IR"
+    },
+    {
+        "country": "Iraq",
+        "abbreviation": "IQ"
+    },
+    {
+        "country": "Ireland",
+        "abbreviation": "IE"
+    },
+    {
+        "country": "Israel",
+        "abbreviation": "IL"
+    },
+    {
+        "country": "Italy",
+        "abbreviation": "IT"
+    },
+    {
+        "country": "Japan",
+        "abbreviation": "JP"
+    },
+    {
+        "country": "Kazakhstan",
+        "abbreviation": "KZ"
+    },
+    {
+        "country": "Latvia",
+        "abbreviation": "LV"
+    },
+    {
+        "country": "Mexico",
+        "abbreviation": "MX"
+    },
+    {
+        "country": "Moldova",
+        "abbreviation": "MD"
+    },
+    {
+        "country": "Mongolia",
+        "abbreviation": "MN"
+    },
+    {
+        "country": "Morocco",
+        "abbreviation": "MA"
+    },
+    {
+        "country": "Netherlands",
+        "abbreviation": "NL"
+    },
+    {
+        "country": "New Zealand",
+        "abbreviation": "NZ"
+    },
+    {
+        "country": "North Korea",
+        "abbreviation": "KP"
+    },
+    {
+        "country": "Norway",
+        "abbreviation": "NO"
+    },
+    {
+        "country": "Pakistan",
+        "abbreviation": "PK"
+    },
+    {
+        "country": "Palestine",
+        "abbreviation": "PS"
+    },
+    {
+        "country": "Poland",
+        "abbreviation": "PL"
+    },
+    {
+        "country": "Portugal",
+        "abbreviation": "PT"
+    },
+    {
+        "country": "Romania",
+        "abbreviation": "RO"
+    },
+    {
+        "country": "Russian Federation",
+        "abbreviation": "RU"
+    },
+    {
+        "country": "Serbia",
+        "abbreviation": "RS"
+    },
+    {
+        "country": "Slovakia",
+        "abbreviation": "SK"
+    },
+    {
+        "country": "Slovenia",
+        "abbreviation": "SI"
+    },
+    {
+        "country": "South Africa",
+        "abbreviation": "ZA"
+    },
+    {
+        "country": "South Korea",
+        "abbreviation": "KR"
+    },
+    {
+        "country": "Spain",
+        "abbreviation": "ES"
+    },
+    {
+        "country": "Sweden",
+        "abbreviation": "SE"
+    },
+    {
+        "country": "Switzerland",
+        "abbreviation": "CH"
+    },
+    {
+        "country": "Syria",
+        "abbreviation": "SY"
+    },
+    {
+        "country": "Tajikistan",
+        "abbreviation": "TJ"
+    },
+    {
+        "country": "Thailand",
+        "abbreviation": "TH"
+    },
+    {
+        "country": "Turkey",
+        "abbreviation": "TR"
+    },
+    {
+        "country": "Ukraine",
+        "abbreviation": "UA"
+    },
+    {
+        "country": "United Arab Emirates",
+        "abbreviation": "AE"
+    },
+    {
+        "country": "United Kingdom",
+        "abbreviation": "GB"
+    },
+    {
+        "country": "United States",
+        "abbreviation": "US"
+    },
+    {
+        "country": "Uzbekistan",
+        "abbreviation": "UZ"
+    },
+    {
+        "country": "Venezuela",
+        "abbreviation": "VE"
+    },
+    {
+        "country": "Vietnam",
+        "abbreviation": "VN"
+    },
+    {
+        "country": "Yugoslavia",
+        "abbreviation": "YU"
+    }
+]

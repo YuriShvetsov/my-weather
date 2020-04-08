@@ -1,0 +1,19 @@
+{
+  "day": {
+    "sunny": "sunny.svg",
+    "partCloudy": "part-cloudy.svg",
+    "overcast": "overcast.svg",
+    "sunnyRain": "sunny-rain.svg",
+    "haily": "haily.svg",
+    "rain": "rain.svg",
+    "snow": "snow.svg",
+    "storm": "storm.svg"
+  },
+  "night": {
+    "clear": "clear-night.svg",
+    "partCloudy": "part-cloudy-night.svg",
+    "rain": "rainy-night.svg"
+  },
+  "sleep": "sleep.svg",
+  "error": "error.svg"
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My weather</title>
+  <link rel="shortcut icon" href="assets/icons/favicon.png" type="image/x-icon">
+</head>
+<body>
+
+  <div id="app" class="weather">
+  
+    <div class="w-header js-header">
+      <div class="weather__container weather__container_large w-header__wrapper">
+        <div class="w-header-logo">My weather</div>
+      </div><!-- weather__container -->
+    </div><!-- app-header -->
+  
+    <div class="w-body">
+      <div class="weather__container weather__container_small">
+        <div class="w-location">
+          <div class="w-form">
+            <div class="w-location__title">Location</div>
+            <div class="w-location__row">
+              <div class="w-location__country js-location-country">
+                <input type="text" class="w-location__country-input js-location-country-input" placeholder="Choose a country">
+                <div class="w-location__country-list js-location-country-list">
+                  <div class="w-location__country-inner js-location-country-inner">
+                    <div class="w-location__country-item" name="empty">Not chosen</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="w-location__row">
+              <input type="text" class="w-location__city js-location-city-input" spellcheck="false"
+                placeholder="Enter a city" disabled>
+              <button class="w-location__btn js-location-city-btn">Set</button>
+            </div>
+          </div>
+        </div><!-- w-location -->
+        
+        <div class="w-widget">
+          <div class="w-widget__wrapper">
+            <div class="w-widget__col w-widget__col_left">
+              <div style="background-image: url(assets/icons/sleep.svg);" alt="" class="w-widget__icon js-widget-icon">
+              </div>
+              <div class="w-widget__loader js-widget-loader"></div>
+            </div>
+            <div class="w-widget__col w-widget__col_right">
+              <div class="w-widget__temp"><span class="js-widget-temp">-</span><span class="w-widget__degree">°C</span></div>
+              <div class="w-widget__desc js-widget-desc">Loading</div>
+              <div class="w-widget__date js-widget-date">Sunday, June 1</div>
+            </div>
+          </div>
+        </div><!-- app-widget -->
+      </div><!-- weather__container -->
+    </div><!-- w-body -->
+  
+    <div class="w-footer">
+      <div class="weather__container weather__container_small">
+        <div class="w-footer-logo">
+          <div class="w-footer-logo__text">My weather</div>
+          <div class="w-footer-logo__line"></div>
+        </div>
+      </div><!-- weather__container -->
+    </div>
+  
+  </div><!-- #app -->
+
+</body>
+</html>
