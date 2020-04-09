@@ -20,10 +20,11 @@
       <div class="weather__container weather__container_small">
         <div class="w-location">
           <div class="w-form">
-            <div class="w-location__title">Location</div>
             <div class="w-location__row">
+              <div class="w-location__title">Location</div>
+              <button class="w-location__here-btn js-location-here-btn">Here</button>
               <div class="w-location__country js-location-country">
-                <input type="text" class="w-location__country-input js-location-country-input" placeholder="Choose a country">
+                <input type="text" class="w-location__country-input js-location-country-input" placeholder="Choose a country" readonly>
                 <div class="w-location__country-list js-location-country-list">
                   <div class="w-location__country-inner js-location-country-inner">
                     <div class="w-location__country-item" name="empty">Not chosen</div>
@@ -31,10 +32,11 @@
                 </div>
               </div>
             </div>
+
             <div class="w-location__row">
-              <input type="text" class="w-location__city js-location-city-input" spellcheck="false"
+              <input type="text" class="w-location__city-input js-location-city-input" spellcheck="false"
                 placeholder="Enter a city" disabled>
-              <button class="w-location__btn js-location-city-btn">Set</button>
+              <button class="w-location__city-btn js-location-city-btn">Set</button>
             </div>
           </div>
         </div><!-- w-location -->

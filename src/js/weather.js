@@ -17,6 +17,7 @@ const elements = {
     countryInner: app.querySelector('.js-location-country-inner'),
     cityInput: app.querySelector('.js-location-city-input'),
     cityBtn: app.querySelector('.js-location-city-btn'),
+    hereBtn: app.querySelector('.js-location-here-btn')
   },
   widget: {
     icon: app.querySelector('.js-widget-icon'),
@@ -124,6 +125,9 @@ function fetchCityForecast() {
         } else if (res.status === 204) {
           showErrorUI('City is not found');
           console.error('Incorrect data');
+        } else if (res.status === 400) {
+          showErrorUI('Service unavailaible');
+          console.error('Data error. Bad request');
         } else if (res.status === 503) {
           showErrorUI('Service unavailaible');
           console.error('Service unavailaible');
@@ -176,6 +180,25 @@ function resetForecastState() {
   state.forecast = null;
 }
 
+function getLastObTime() {
+  const grinvichTime = new Date(state.forecast.ob_time);
+  const timezone = timezones.find(t => t.utc.find(item => item.split('/').reverse()[0] == state.forecast.timezone.split('/').reverse()[0]))
+
+  if (timezone === undefined) {
+    console.error('Error! Timezone is not found');
+    return null;
+  }
+
+  const utc = {
+    h: (timezone.offset - parseInt(timezone.offset) !== 0) ? grinvichTime.getHours() + parseInt(timezone.offset) + 1 : grinvichTime.getHours() + timezone.offset,
+    m: (timezone.offset - parseInt(timezone.offset) !== 0) ? grinvichTime.getMinutes() + (timezone.offset - parseInt(timezone.offset)) * 60 : grinvichTime.getMinutes()
+  };
+
+  if (utc.h > 24) utc.h -= 24;
+  // console.log(`Last ob. time (${state.forecast.city_name}): ${utc.h}:${utc.m}`);
+  return utc;
+}
+
 /* View. Rendering of DOM */
 
 function renderDom() {
@@ -212,7 +235,13 @@ function setIconUI(icon) {
 
 function setWeatherIconUI() {
   const weatherDesc = state.forecast.weather.description.toLowerCase();
+  const lastObTime = getLastObTime();
+
   let isDay = true;
+
+  if (lastObTime && (lastObTime.h < 6 || lastObTime.h >= 22)) {
+    isDay = false;
+  }
 
   if (weatherDesc.includes('clear') && isDay) {
     setIconUI(icons.day.sunny);
@@ -307,6 +336,8 @@ function showLoaderUI() {
   // console.log('Loader is visible');
   elements.widget.icon.classList.add('w-widget__icon_lighten');
   elements.widget.loader.classList.add('w-widget__loader_visible');
+  elements.widget.desc.textContent = 'Loading';
+  elements.widget.temp.textContent = '-';
 }
 
 function hideLoaderUI() {
@@ -321,6 +352,14 @@ function enableCityInputUI() {
 
 function disableCityInputUI() {
   elements.location.cityInput.setAttribute('disabled', true);
+}
+
+function unableCityBtnUI() {
+  elements.location.cityBtn.disabled = false;
+}
+
+function disableCityBtnUI() {
+  elements.location.cityBtn.disabled = true;
 }
 
 function showCountryListUI() {
@@ -392,7 +431,9 @@ async function getCityForecast() {
 
 function initHandlers() {
   initHandlerCountry();
-  initHandlerCity();
+  initHandlerCityInput();
+  initHandlerCityBtn();
+  initHandlerHereBtn();
 }
 
 function initHandlerCountry() {
@@ -427,6 +468,7 @@ function initHandlerCountry() {
         clearCountryInputUI();
         clearCityInputUI();
         disableCityInputUI();
+        disableCityBtnUI();
 
       // Selecting another country
       } else if (newCountryCode !== 'empty' && newCountryCode !== state.city.countryCode) {
@@ -435,6 +477,7 @@ function initHandlerCountry() {
         elements.location.countryInput.value = newCountryName;
         clearCityInputUI();
         setCurCityUI();
+        unableCityBtnUI();
         elements.location.cityInput.focus();
 
       // Selecting the same country
@@ -464,12 +507,26 @@ function initHandlerCountry() {
   });
 }
 
-function initHandlerCity() {
+function initHandlerCityInput() {
   elements.location.cityInput.addEventListener('keydown', e => {
     if (e.code === 'Enter' || e.keyCode === 13) {
       setCityState(e.target.value);
       getCityForecast();
     }
+  });
+}
+
+function initHandlerCityBtn() {
+  elements.location.cityBtn.addEventListener('click', e => {
+    if (elements.location.cityInput.value.length === 0) return;
+    setCityState(elements.location.cityInput.value);
+    getCityForecast();
+  });
+}
+
+function initHandlerHereBtn() {
+  elements.location.hereBtn.addEventListener('click', e => {
+    getMyForecast();
   });
 }
 
