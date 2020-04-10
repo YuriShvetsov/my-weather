@@ -42,7 +42,7 @@
         </div><!-- w-location -->
         
         <div class="w-widget">
-          <div class="w-widget__wrapper">
+          <div class="w-widget__main js-widget-main">
             <div class="w-widget__col w-widget__col_left">
               <div style="background-image: url(assets/icons/sleep.svg);" alt="" class="w-widget__icon js-widget-icon">
               </div>
@@ -53,6 +53,43 @@
               <div class="w-widget__desc js-widget-desc">Loading</div>
               <div class="w-widget__date js-widget-date">Sunday, June 1</div>
             </div>
+          </div>
+
+          <button class="w-widget__more-btn js-more-btn" disabled>More info</button>
+          <div class="w-more__container js-more-container">
+            <table class="w-more__table">
+              <tr class="w-more__row">
+                <td class="w-more__td w-more__name">Pressure</td>
+                <td class="w-more__td w-more__value">
+                  <span class="js-more-pressure">-</span> mmhg
+                </td>
+              </tr>
+              <tr class="w-more__row">
+                <td class="w-more__td w-more__name">Humidity</td>
+                <td class="w-more__td w-more__value">
+                  <span class="js-more-humidity">-</span>%
+                </td>
+              </tr>
+              <tr class="w-more__row">
+                <td class="w-more__td w-more__name">Wind</td>
+                <td class="w-more__td w-more__value">
+                  <span class="js-more-wind">-</span>
+                  <br><span class="js-more-wind-speed">-</span> m/s
+                </td>
+              </tr>
+              <tr class="w-more__row">
+                <td class="w-more__td w-more__name">Visibility</td>
+                <td class="w-more__td w-more__value">
+                  <span class="js-more-visibility">-</span> km
+                </td>
+              </tr>
+              <tr class="w-more__row">
+                <td class="w-more__td w-more__name">UV</td>
+                <td class="w-more__td w-more__value">
+                  <span class="js-more-uv">-</span>
+                </td>
+              </tr>
+            </table>
           </div>
         </div><!-- app-widget -->
       </div><!-- weather__container -->

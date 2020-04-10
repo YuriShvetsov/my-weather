@@ -20,11 +20,22 @@ const elements = {
     hereBtn: app.querySelector('.js-location-here-btn')
   },
   widget: {
+    container: app.querySelector('.js-widget-main'),
     icon: app.querySelector('.js-widget-icon'),
     temp: app.querySelector('.js-widget-temp'),
     desc: app.querySelector('.js-widget-desc'),
     date: app.querySelector('.js-widget-date'),
     loader: app.querySelector('.js-widget-loader')
+  },
+  more: {
+    btn: app.querySelector('.js-more-btn'),
+    container: app.querySelector('.js-more-container'),
+    pressure: app.querySelector('.js-more-pressure'),
+    humidity: app.querySelector('.js-more-humidity'),
+    wind: app.querySelector('.js-more-wind'),
+    windDir: app.querySelector('.js-more-wind-speed'),
+    visibility: app.querySelector('.js-more-visibility'),
+    uv: app.querySelector('.js-more-uv')
   }
 };
 const colors = {
@@ -176,27 +187,74 @@ function setForecastState(forecast) {
   state.forecast = forecast;
 }
 
-function resetForecastState() {
-  state.forecast = null;
+function getTimezoneOffset() {
+  // Return object with offset and other data
+  let offset = timezones.find(t => t.utc.find(item => item.split('/').reverse()[0] == state.forecast.timezone.split('/').reverse()[0])).offset;
+
+  return offset;
 }
 
 function getLastObTime() {
-  const grinvichTime = new Date(state.forecast.ob_time);
-  const timezone = timezones.find(t => t.utc.find(item => item.split('/').reverse()[0] == state.forecast.timezone.split('/').reverse()[0]))
+  const grinvichTime = {
+    h: +state.forecast.ob_time.split(' ')[1].split(':')[0],
+    m: +state.forecast.ob_time.split(' ')[1].split(':')[1]
+  };
+  const offset = getTimezoneOffset();
 
-  if (timezone === undefined) {
+  if (offset === undefined) {
     console.error('Error! Timezone is not found');
     return null;
   }
 
   const utc = {
-    h: (timezone.offset - parseInt(timezone.offset) !== 0) ? grinvichTime.getHours() + parseInt(timezone.offset) + 1 : grinvichTime.getHours() + timezone.offset,
-    m: (timezone.offset - parseInt(timezone.offset) !== 0) ? grinvichTime.getMinutes() + (timezone.offset - parseInt(timezone.offset)) * 60 : grinvichTime.getMinutes()
+    h: (offset - parseInt(offset) !== 0) ? grinvichTime.h + parseInt(offset) + 1 : grinvichTime.h + offset,
+    m: (offset - parseInt(offset) !== 0) ? grinvichTime.m + (offset - parseInt(offset)) * 60 : grinvichTime.m
   };
 
   if (utc.h > 24) utc.h -= 24;
   // console.log(`Last ob. time (${state.forecast.city_name}): ${utc.h}:${utc.m}`);
+  // console.log(`Offset: ${offset}`);
   return utc;
+}
+
+function getTimesOfDay() {
+  // Return boolean (day: true, night: false)
+  const lastObTime = getLastObTime();
+  const offset = getTimezoneOffset();
+  if (!lastObTime) return true;
+
+  const sun = {
+    rise: {
+      h: +state.forecast.sunrise.split(':')[0],
+      m: +state.forecast.sunrise.split(':')[1],
+    },
+    set: {
+      h: +state.forecast.sunset.split(':')[0],
+      m: +state.forecast.sunset.split(':')[1],
+    }
+  };
+
+  sun.rise.h += ((offset - parseInt(offset)) > 0) ? offset + 1 : offset;
+  sun.rise.m += ((offset - parseInt(offset)) > 0) ? offset - parseInt(offset) * 60 : 0;
+
+  sun.set.h += ((offset - parseInt(offset)) > 0) ? offset + 1 : offset;
+  sun.set.m += ((offset - parseInt(offset)) > 0) ? offset - parseInt(offset) * 60 : 0;
+
+  if (sun.rise.h > 23) sun.rise.h -= 24;
+  if (sun.set.h < 0) sun.set.h += 24;
+
+  console.log(`Sunrise: ${sun.rise.h}:${sun.rise.m}`);
+  console.log(`Sunset: ${sun.set.h}:${sun.set.m}`);
+
+  if (lastObTime.h > sun.rise.h && lastObTime.h < sun.set.h) {           // Day
+    return true;
+  } else if (lastObTime.h < sun.rise.h && lastObTime.h > sun.set.h) {   // Night
+    return false;
+  } else if (lastObTime.h == sun.rise.h && lastObTime.m >= sun.rise.m) { // Day
+    return true;
+  } else if (lastObTime.h == sun.set.h && lastObTime.m >= sun.set.m) { // Night
+    return false;
+  }
 }
 
 /* View. Rendering of DOM */
@@ -210,6 +268,8 @@ function setWeatherUI() {
   setWeatherIconUI();
   setWeatherTempUI();
   setWeatherDescUI();
+  setMoreInfoUI();
+  unableMoreBtnUI();
 }
 
 function renderCountryListUI() {
@@ -225,6 +285,17 @@ function renderCountryListUI() {
   });
 }
 
+function resetModeApp() {
+  if (state.mode == 'more') {
+    hideMoreContainerUI();
+    changeMoreBtnOpenUI();
+    disableMoreBtnUI();
+  }
+
+  disableMoreBtnUI();
+  state.mode = 'default';
+}
+
 function setHeaderColorUI(color) {
   elements.header.style.backgroundColor = color;
 }
@@ -235,13 +306,7 @@ function setIconUI(icon) {
 
 function setWeatherIconUI() {
   const weatherDesc = state.forecast.weather.description.toLowerCase();
-  const lastObTime = getLastObTime();
-
-  let isDay = true;
-
-  if (lastObTime && (lastObTime.h < 6 || lastObTime.h >= 22)) {
-    isDay = false;
-  }
+  const isDay = getTimesOfDay();
 
   if (weatherDesc.includes('clear') && isDay) {
     setIconUI(icons.day.sunny);
@@ -332,6 +397,15 @@ function setCurDateUI() {
   elements.widget.date.textContent = `${date.weekday}, ${date.month} ${date.day}`;
 }
 
+function setMoreInfoUI() {
+  elements.more.pressure.textContent = Math.round(state.forecast.pres * 0.75);
+  elements.more.humidity.textContent = state.forecast.rh;
+  elements.more.wind.textContent = state.forecast.wind_cdir_full
+  elements.more.windDir.textContent = Math.round(state.forecast.wind_spd);
+  elements.more.visibility.textContent = Math.round(state.forecast.vis);
+  elements.more.uv.textContent = Math.round(state.forecast.uv);
+}
+
 function showLoaderUI() {
   // console.log('Loader is visible');
   elements.widget.icon.classList.add('w-widget__icon_lighten');
@@ -362,6 +436,36 @@ function disableCityBtnUI() {
   elements.location.cityBtn.disabled = true;
 }
 
+function changeMoreBtnCloseUI() {
+  elements.more.btn.classList.add('w-widget__more-btn_close');
+}
+
+function changeMoreBtnOpenUI() {
+  elements.more.btn.classList.remove('w-widget__more-btn_close');
+}
+
+function unableMoreBtnUI() {
+  elements.more.btn.disabled = false;
+}
+
+function disableMoreBtnUI() {
+  elements.more.btn.disabled = true;
+}
+
+function showMoreContainerUI() {
+  elements.more.container.classList.add('w-more__container_visible');
+  elements.widget.container.classList.add('w-widget__main_shadow');
+}
+
+function hideMoreContainerUI() {
+  elements.more.container.classList.add('w-more__container_hidden');
+  elements.widget.container.classList.remove('w-widget__main_shadow');
+  elements.more.container.classList.remove('w-more__container_visible');
+  setTimeout(() => {
+    elements.more.container.classList.remove('w-more__container_hidden');
+  }, 500);
+}
+
 function showCountryListUI() {
   elements.location.countryList.classList.add('w-location__country-list_visible');
 }
@@ -389,15 +493,16 @@ function clearCityInputUI() {
 async function getMyForecast() {
   try {
     // Rendering of something
+    resetModeApp();
     showLoaderUI();
 
     // Getting data from server
-    await delay(500);
     await getMyCoords();
     await fetchMyForecast();
-    await delay(500);
+    await delay(1000);
 
     // Render with a new data
+    unableMoreBtnUI();
     setWeatherUI();
     setCurCityUI();
   } catch (e) {
@@ -411,15 +516,15 @@ async function getMyForecast() {
 async function getCityForecast() {
   try {
     // Rendering of something
+    resetModeApp();
     showLoaderUI();
 
     // Getting data from server
-    await delay(500);
-    // await getMyCoords();
     await fetchCityForecast();
-    await delay(500);
+    await delay(1000);
 
     // Render with a new data
+    unableMoreBtnUI();
     setWeatherUI();
   } catch(e) {
     // code
@@ -434,6 +539,7 @@ function initHandlers() {
   initHandlerCityInput();
   initHandlerCityBtn();
   initHandlerHereBtn();
+  initHandlerMoreBtn();
 }
 
 function initHandlerCountry() {
@@ -527,6 +633,26 @@ function initHandlerCityBtn() {
 function initHandlerHereBtn() {
   elements.location.hereBtn.addEventListener('click', e => {
     getMyForecast();
+  });
+}
+
+function initHandlerMoreBtn() {
+  let isOpened = false;
+
+  elements.more.btn.addEventListener('click', e => {
+    if (state.mode == 'default' && isOpened) isOpened = false;
+
+    if (isOpened) {
+      state.mode = 'default';
+      changeMoreBtnOpenUI()
+      hideMoreContainerUI();
+    } else {
+      state.mode = 'more';
+      changeMoreBtnCloseUI();
+      showMoreContainerUI();
+    }
+
+    isOpened = !isOpened;
   });
 }
 
