@@ -63,8 +63,13 @@ const state = {
 /* Initialization app */
 
 renderDom();
-initHandlers();
-getMyForecast();
+
+window.addEventListener('load', () => {
+  initHandlers();
+  preCacheImages(icons);
+  getMyForecast();
+});
+
 
 /* Data. Data is written to a constant _state_ */
 
@@ -678,6 +683,22 @@ function delay(ms) {
   });
 }
 
+function preCacheImages(images) {
+  let container = document.createElement('div');
+  container.style = 'display: none; position: absolute; left: 0; top: 0; opacity: 0; visibility: hidden;';
 
+  open(images);
+  document.body.appendChild(container);
 
-
+  function open(obj) {
+    Object.values(obj).forEach(item => {
+      if (typeof item === 'object') {
+        open(item);
+      } else if (typeof item === 'string') {
+        let img = new Image();
+        img.src = `assets/icons/${item}`;
+        container.appendChild(img);
+      }
+    });
+  }
+}

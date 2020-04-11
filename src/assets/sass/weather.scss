@@ -396,22 +396,21 @@
 
 .w-widget__more-btn {
   display: block;
-  width: 18px;
-  height: 18px;
+  width: 26px;
+  height: 26px;
   position: absolute;
-  right: 10px;
-  top: 10px;
+  right: 8px;
+  top: 8px;
   font-family: inherit;
   font-size: 12px;
   font-weight: 500;
   color: #fff;
   text-indent: -999px;
-  background-color: #fff;
-  background-image: url(../icons/close.svg);
+  background-color: rgba(255, 255, 255, 0);
   background-image: url(../icons/info.svg);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: 18px 18px;
   border: none;
   border-radius: 50%;
   opacity: 0.8;

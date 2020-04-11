@@ -15,5 +15,6 @@
     "rain": "rainy-night.svg"
   },
   "sleep": "sleep.svg",
-  "error": "error.svg"
+  "error": "error.svg",
+  "close": "close.svg"
 }
