@@ -72,13 +72,13 @@ function getMyCoords() {
   if (navigator.geolocation) {
     return new Promise((resolve, reject) => {
       let error = null;
-      console.log('Getting my coordinates. Waiting...');
+      // console.log('Getting my coordinates. Waiting...');
       navigator.geolocation.getCurrentPosition(pos => {
         state.myPosition = {
           lon: pos.coords.longitude,
           lat: pos.coords.latitude
         };
-        console.log('Getting my coordinates. Successfull!');
+        // console.log('Getting my coordinates. Successfull!');
         resolve();
       }, err => {
         if (err.code === 1) {
@@ -106,7 +106,7 @@ function fetchMyForecast() {
   return new Promise((resolve, reject) => {
     const url = `https://api.weatherbit.io/v2.0/current?&lat=${state.myPosition.lat}&lon=${state.myPosition.lon}&key=05029a9a68664ba3a2868840054ed716`;
 
-    console.log('Getting my weather forecast. Waiting...');
+    // console.log('Getting my weather forecast. Waiting...');
     fetch(url)
       .then(response => {
         return response.json();
@@ -115,7 +115,7 @@ function fetchMyForecast() {
         setForecastState(data.data[0]);
         setCountryState(data.data[0].country_code);
         setCityState(data.data[0].city_name);
-        console.log('Getting my weather forecast. Successfull!');
+        // console.log('Getting my weather forecast. Successfull!');
         resolve();
       })
       .catch(err => {
@@ -128,7 +128,7 @@ function fetchCityForecast() {
   return new Promise((resolve, reject) => {
     const url = `https://api.weatherbit.io/v2.0/current?&city=${state.city.name}&country=${state.city.countryCode}&key=05029a9a68664ba3a2868840054ed716`;
 
-    console.log('Getting city forecast. Waiting...');
+    // console.log('Getting city forecast. Waiting...');
     fetch(url)
       .then(res => {
         if (res.status === 200) {
@@ -153,7 +153,7 @@ function fetchCityForecast() {
         setForecastState(data.data[0]);
         setCountryState(data.data[0].country_code);
         setCityState(data.data[0].city_name);
-        console.log('Getting city forecast. Successfull!');
+        // console.log('Getting city forecast. Successfull!');
         resolve();
       })
       .catch(err => {
@@ -161,6 +161,13 @@ function fetchCityForecast() {
         reject();
       })
   })
+}
+
+function checkConnection() {
+  if (!window.navigator.onLine) {
+    showErrorUI('Please, checking connection');
+    throw 'NO CONNECTION';
+  }
 }
 
 function setCountryState(code) {
@@ -188,9 +195,8 @@ function setForecastState(forecast) {
 }
 
 function getTimezoneOffset() {
-  // Return object with offset and other data
+  // Return offset value
   let offset = timezones.find(t => t.utc.find(item => item.split('/').reverse()[0] == state.forecast.timezone.split('/').reverse()[0])).offset;
-
   return offset;
 }
 
@@ -243,8 +249,8 @@ function getTimesOfDay() {
   if (sun.rise.h > 23) sun.rise.h -= 24;
   if (sun.set.h < 0) sun.set.h += 24;
 
-  console.log(`Sunrise: ${sun.rise.h}:${sun.rise.m}`);
-  console.log(`Sunset: ${sun.set.h}:${sun.set.m}`);
+  // console.log(`Sunrise: ${sun.rise.h}:${sun.rise.m}`);
+  // console.log(`Sunset: ${sun.set.h}:${sun.set.m}`);
 
   if (lastObTime.h > sun.rise.h && lastObTime.h < sun.set.h) {           // Day
     return true;
@@ -488,13 +494,16 @@ function clearCityInputUI() {
   elements.location.cityInput.value = '';
 }
 
-/* Controller. Controlling of processes */
+/* Controller */
 
 async function getMyForecast() {
   try {
     // Rendering of something
     resetModeApp();
     showLoaderUI();
+
+    // Checking connection
+    checkConnection();
 
     // Getting data from server
     await getMyCoords();
@@ -518,6 +527,9 @@ async function getCityForecast() {
     // Rendering of something
     resetModeApp();
     showLoaderUI();
+
+    // Checking connection
+    checkConnection();
 
     // Getting data from server
     await fetchCityForecast();
