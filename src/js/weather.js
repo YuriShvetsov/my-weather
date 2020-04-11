@@ -391,7 +391,7 @@ function setWeatherDescUI() {
 }
 
 function setWeatherTempUI() {
-  elements.widget.temp.textContent = Math.floor(state.forecast.temp);
+  elements.widget.temp.textContent = Math.round(state.forecast.temp);
 }
 
 function resetWeatherTempUI() {
