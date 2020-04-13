@@ -513,7 +513,7 @@ async function getMyForecast() {
     // Getting data from server
     await getMyCoords();
     await fetchMyForecast();
-    await delay(1000);
+    await delay(500);
 
     // Render with a new data
     unableMoreBtnUI();
@@ -538,7 +538,7 @@ async function getCityForecast() {
 
     // Getting data from server
     await fetchCityForecast();
-    await delay(1000);
+    await delay(500);
 
     // Render with a new data
     unableMoreBtnUI();
