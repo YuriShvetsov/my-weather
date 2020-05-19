@@ -269,7 +269,7 @@
   position: relative;
   color: $text-color-gray-dark;
   background-color: #fff;
-  border-radius: 15px;
+  border-radius: 5px;
   box-shadow: 0 10px 20px rgba(70, 70, 70, 0.2);
   backface-visibility: hidden;
   transform: translate3d(0, 0, 0);
@@ -440,7 +440,7 @@
   left: 0;
   top: 0;
   background-color: #fff;
-  border-radius: 15px;
+  border-radius: 5px;
   visibility: hidden;
   z-index: 4;
 }
