@@ -19,7 +19,7 @@ The objectives that were pursued when creating this app:
 ------------
 
 ``` zsh
-# Download repository:
+# Create app folder:
 mkdir my-weather
 
 # Download repository:
