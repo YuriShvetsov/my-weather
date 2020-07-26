@@ -20,7 +20,10 @@ The objectives that were pursued when creating this app:
 
 ``` zsh
 # Download repository:
-git clone https://github.com/YuriShvetsov/my-weather.git
+mkdir my-weather
+
+# Download repository:
+git clone https://github.com/YuriShvetsov/my-weather.git my-weather
 
 # Go to the app:
 cd my-weather
